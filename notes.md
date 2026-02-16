@@ -19,3 +19,5 @@ Goroutines are lightweight threads of execution in the Go programming language. 
 - `sync.Once`: ensures that a function is only executed once, even if called from multiple goroutines. You can use the Do() method to execute the function, and it will only run once, regardless of how many times it is called.
 - `sync.Pool`: a pool of temporary objects that can be reused to reduce the number of allocations. It is not a mutex, but it can help improve performance by reducing the overhead of creating and destroying objects. You can use the Get() method to retrieve an object from the pool and the Put() method to return an object to the pool for reuse.
 
+### why does `-race` tests so slower than the normal ones?
+The `-race` flag in Go enables the race detector, which is a tool that helps identify race conditions in your code. When you run tests with the `-race` flag, the race detector instruments your code to track access to shared variables and detect potential race conditions. This instrumentation adds overhead to the execution of your tests, which is why they run slower than normal tests.
