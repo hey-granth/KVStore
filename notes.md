@@ -21,3 +21,18 @@ Goroutines are lightweight threads of execution in the Go programming language. 
 
 ### why does `-race` tests so slower than the normal ones?
 The `-race` flag in Go enables the race detector, which is a tool that helps identify race conditions in your code. When you run tests with the `-race` flag, the race detector instruments your code to track access to shared variables and detect potential race conditions. This instrumentation adds overhead to the execution of your tests, which is why they run slower than normal tests.
+
+## structure i plan to build
+
+so basically there are 2 things that i need to manage:
+- networking layer 
+  - how to open connections
+  - how to send bytes
+  - how to receive bytes
+- cluster logic
+  - what to send
+  - how to resolve conflicts
+  - when to replicate
+
+since i am using `libp2p` initially in the mvp, i am using a contract to abstract away the networking layer, so that i can easily swap it out for something else in the future if needed. the contract will basically keep the cluster logic and networking layer oblivious to each other, so it doesn't crash when i switch the `libp2p` with my own implementation of the networking layer.
+this contract is basically what i write in `/internal/network/transport.go`.
